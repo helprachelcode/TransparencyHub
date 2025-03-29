@@ -201,12 +201,42 @@ window.onload = function() {
         "Customer Feedback"
       ];
 
-      topics.forEach(topic => {
-        const anchorId = topic.split(" ").join("");
-        const header = document.createElement("h2");
-        header.id = anchorId;
-        header.textContent = topic;
-        container.appendChild(header);
+// First: get all unique topics from the data
+const uniqueTopics = [...new Set(data.map(item => item.Topic).filter(Boolean))];
+
+uniqueTopics.forEach(topic => {
+  const anchorId = topic.replace(/\s+/g, '');
+  const header = document.createElement("h2");
+  header.id = anchorId;
+  header.textContent = topic;
+  container.appendChild(header);
+
+  const group = data.filter(item => item.Topic === topic);
+  group.forEach(resource => {
+    const div = document.createElement("div");
+    div.className = "resource";
+    div.innerHTML = `
+      <h3>${resource.Title}</h3>
+      <p><strong>Agency:</strong> ${resource.Agency}</p>
+      <p><strong>Topic:</strong> ${resource.Topic}</p>
+      <p><strong>Format:</strong> ${resource.Format}</p>
+      <p><strong>Audience:</strong> ${resource.Audience}</p>
+      <p>${resource.Description}</p>
+      <p><a href="${resource.URL}" target="_blank">Visit site</a></p>
+      <div class="tags">
+        ${(
+          typeof resource.Tags === 'string'
+            ? resource.Tags.split(',').map(t => t.trim())
+            : Array.isArray(resource.Tags)
+              ? resource.Tags
+              : []
+        ).map(tag => `<span class="tag">${tag}</span>`).join(' ')}
+      </div>
+    `;
+    container.appendChild(div);
+  });
+});
+
 
         const group = data.filter(item => item.Topic === topic);
         group.forEach(resource => {
