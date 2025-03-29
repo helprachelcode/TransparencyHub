@@ -151,12 +151,7 @@
 <header>
 <h1>Your WA – Transparency Hub</h1>
 <button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
-<nav aria-label="Main navigation" class="collapsed" id="mainNav">
-<a href="#topics">Explore by Topic</a>
-<a href="#tools">Find a Tool</a>
-<a href="#learn">Learn &amp; Participate</a>
-<a href="#form">Suggest a Resource</a>
-</nav>
+<nav id="topic-nav"></nav>
 </header>
 <main class="container" id="main">
 <section class="section" id="topics">
@@ -190,26 +185,27 @@ window.onload = function() {
   fetch('your-wa-resources-complete-final.json')
     .then(response => response.json())
     .then(data => {
-      const container = document.getElementById("resource-list");
-      const topics = [
-        "Budget & Spending",
-        "Performance & Accountability",
-        "Equity & Inclusion",
-        "Environment",
-        "Licensing & Certification",
-        "Public Records",
-        "Customer Feedback"
-      ];
+const container = document.getElementById("resource-list");
+const nav = document.getElementById("topic-nav");
 
-// First: get all unique topics from the data
-const uniqueTopics = [...new Set(data.map(item => item.Topic).filter(Boolean))];
+// Get all unique topics and count them
+        const topicCounts = {};
+        data.forEach(item => {
+          if (!topicCounts[item.Topic]) topicCounts[item.Topic] = 0;
+          topicCounts[item.Topic]++;
+        });
+        
+        const uniqueTopics = Object.keys(topicCounts).sort();
+        
+// Build the navigation bar
+        uniqueTopics.forEach(topic => {
+          const anchorId = topic.replace(/\s+/g, '').replace(/[^\w-]/g, '');
+          const link = document.createElement("a");
+          link.href = `#${anchorId}`;
+          link.textContent = `${topic} (${topicCounts[topic]})`;
+          nav.appendChild(link);
+        });
 
-uniqueTopics.forEach(topic => {
-  const anchorId = topic.replace(/\s+/g, '');
-  const header = document.createElement("h2");
-  header.id = anchorId;
-  header.textContent = topic;
-  container.appendChild(header);
 
   const group = data.filter(item => item.Topic === topic);
   group.forEach(resource => {
