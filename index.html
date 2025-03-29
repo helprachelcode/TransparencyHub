@@ -221,7 +221,14 @@ window.onload = function() {
             <p>${resource.Description}</p>
             <p><a href="${resource.URL}" target="_blank">Visit site</a></p>
             <div class="tags">
-              ${(resource.Tags || []).map(tag => `<span class="tag">${tag}</span>`).join(' ')}
+              ${(
+                typeof resource.Tags === 'string'
+                ? resource.Tags.split(',').map(t => t.trim())
+                 : Array.isArray(resource.Tags)
+                 ? resource.Tags
+                 : []
+).map(tag => `<span class="tag">${tag}</span>`).join(' ')}
+
             </div>
           `;
           container.appendChild(div);
