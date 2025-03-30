@@ -65,6 +65,8 @@
         border-top: 2px solid var(--olive-green);
         border-bottom: 2px solid var(--olive-green);
         margin-bottom: 2rem;
+        z-index: 4;               /* ensure it's on top of video */
+        position: relative;
     }
 
     #topic-nav a {
@@ -75,225 +77,194 @@
         font-size: 0.9rem;
         border-radius: 5px;
         text-decoration: none;
+        font-weight: bold;
     }
 
     #topic-nav a:hover {
         background-color: var(--lavender);
     }
-    
+
     #topic-nav a.active {
-      background-color: var(--orange);
-      color: white;
+        background-color: var(--orange);
+        color: white;
     }
-    
+
     #topic-nav a.inactive {
-      opacity: 0.4;
+        opacity: 0.4;
     }
 
-        h1 {
-            font-size: 2em;
-            margin-bottom: 0.2em;
-        }
+    h1 {
+        font-size: 2em;
+        margin-bottom: 0.2em;
+    }
 
-        h2 {
-          background-color: #F6F8F9;
-          padding: 0.5em 1em;
-          border-left: 6px solid #7B8D3B; /* Olive accent */
-          color: #3C4B5E; /* Dark Slate Blue */
-          font-size: 1.5em;
-          font-weight: 900;
-          margin-top: 2em;
-          margin-bottom: 1em;
-          border-radius: 4px;
-          scroll-margin-top: 100px;
-        }
+    h2 {
+        background-color: #F6F8F9;
+        padding: 0.5em 1em;
+        border-left: 6px solid #7B8D3B;
+        color: #3C4B5E;
+        font-size: 1.5em;
+        font-weight: 900;
+        margin-top: 2em;
+        margin-bottom: 1em;
+        border-radius: 4px;
+        scroll-margin-top: 100px;
+    }
 
+    h3 {
+        font-size: 1.2em;
+        color: var(--dark-slate-blue);
+    }
 
-        h3 {
-            font-size: 1.2em;
-            color: var(--dark-slate-blue);
-        }
+    .section {
+        margin-bottom: 2em;
+    }
 
-        .section {
-            margin-bottom: 2em;
-        }
+    .card {
+        background: white;
+        border: 2px solid var(--lavender);
+        border-left: 8px solid var(--muted-blue);
+        border-radius: 6px;
+        padding: 1em;
+        margin: 1em 0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        transition: box-shadow 0.3s ease;
+    }
 
-        .card {
-            background: white;
-            border: 2px solid var(--lavender);
-            border-left: 8px solid var(--muted-blue);
-            border-radius: 6px;
-            padding: 1em;
-            margin: 1em 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            transition: box-shadow 0.3s ease;
-        }
+    .card:hover {
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
 
-        .card:hover {
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
+    .card a {
+        color: var(--orange);
+        text-decoration: none;
+        font-weight: bold;
+        display: inline-block;
+        margin-top: 0.5em;
+    }
 
-        .card a {
-            color: var(--orange);
-            text-decoration: none;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 0.5em;
-        }
+    .card a:hover {
+        color: var(--deep-red);
+        text-decoration: underline;
+    }
 
-        .card a:hover {
-            color: var(--deep-red);
-            text-decoration: underline;
-        }
+    .tag {
+        display: inline-block;
+        background-color: var(--dusty-rose);
+        color: white;
+        font-size: 0.75em;
+        padding: 0.2em 0.5em;
+        margin: 0.2em;
+        border-radius: 3px;
+    }
 
-        .tag {
-            display: inline-block;
-            background-color: var(--dusty-rose);
-            color: white;
-            font-size: 0.75em;
-            padding: 0.2em 0.5em;
-            margin: 0.2em;
-            border-radius: 3px;
-        }
+    footer {
+        text-align: center;
+        font-size: 0.9em;
+    }
 
-        footer {
-            text-align: center;
-            font-size: 0.9em;
-        }
+    .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: #ffffe0;
+        color: #003366;
+        padding: 8px;
+        z-index: 100;
+        text-decoration: none;
+        font-weight: bold;
+    }
 
-        .skip-link {
-            position: absolute;
-            top: -40px;
-            left: 0;
-            background: #ffffe0;
-            color: #003366;
-            padding: 8px;
-            z-index: 100;
-            text-decoration: none;
-            font-weight: bold;
-        }
+    .skip-link:focus {
+        top: 10px;
+    }
 
-        .skip-link:focus {
-            top: 10px;
-        }
+    .menu-toggle {
+        display: none;
+        font-size: 1.5em;
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: white;
+    }
 
-        .menu-toggle {
-            display: none;
-            font-size: 1.5em;
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: white;
-        }
+    @media (max-width: 600px) {
+        nav a { display: block; margin: 0.5em 0; }
+        .menu-toggle { display: inline; }
+        nav.collapsed a { display: none; }
+    }
 
-        @media (max-width: 600px) {
-            nav a { display: block; margin: 0.5em 0; }
-            .menu-toggle { display: inline; }
-            nav.collapsed a { display: none; }
-        }
-    
-        #topic-nav a {
-          display: inline-block;
-          margin-right: 1rem;
-          text-decoration: none;
-          font-weight: bold;
-          color: #4E738D;
-          margin-bottom: 0.5rem;
-        }
-                #topic-nav {
-          margin: 1.5rem 0;
-          padding: 1rem;
-          background: #eef2f5;
-          border-radius: 8px;
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.5rem;
-        }
-        
-        #topic-nav a {
-          background: #4E738D; /* Muted Blue */
-          color: white;
-          padding: 0.4em 0.8em;
-          border-radius: 4px;
-          text-decoration: none;
-          font-size: 0.9em;
-          font-weight: bold;
-        }
-        
-        #topic-nav a:hover {
-          background: #3C4B5E; /* Dark Slate Blue */
-        }
+    .top-bar {
+        background: var(--dark-slate-blue);
+        color: white;
+        padding: 1em;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-        .top-bar {
-          background: var(--dark-slate-blue);
-          color: white;
-          padding: 1em;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: space-between;
-          align-items: center;
-        }
-        
-        .video-banner {
-          position: relative;
-          width: 100%;
-          height: 300px; /* Or whatever feels right */
-          overflow: hidden;
-        }
-        
-        .video-banner video {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          min-width: 100%;
-          min-height: 100%;
-          transform: translate(-50%, -50%);
-          object-fit: cover;
-          z-index: 1;
-        }
-        
-        .video-overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(60, 75, 94, 0.6); /* translucent dark overlay */
-          z-index: 2;
-        }
-        
-        .hero-header {
-          position: relative;
-          z-index: 3;
-          text-align: center;
-          padding: 2rem 1rem;
-          margin-top: -300px; /* pull into video space */
-          color: white;
-        }
+    .video-banner {
+        position: relative;
+        width: 100%;
+        height: 300px;
+        overflow: hidden;
+        z-index: 0;
+    }
 
-        
-        .hero-header h1 {
-          font-size: 2.5rem;
-          color: var(--dark-slate-blue);
-          margin: 0;
-        }
-        
-        .hero-header .subtitle {
-          font-size: 1rem;
-          color: var(--charcoal);
-          margin-top: 0.5rem;
-        }
+    .video-banner video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        transform: translate(-50%, -50%);
+        object-fit: cover;
+        z-index: 1;
+    }
 
+    .video-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(60, 75, 94, 0.6); /* translucent dark overlay */
+        z-index: 2;
+    }
+
+    .hero-header {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 3;
+        text-align: center;
+        padding: 1rem;
+        width: 100%;
+    }
+
+    .hero-header h1 {
+        font-size: 2.5rem;
+        color: white;
+        margin: 0;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+    }
+
+    .hero-header .subtitle {
+        font-size: 1.1rem;
+        color: white;
+        margin-top: 0.5rem;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+    }
 </style>
+
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to main content</a>
 
-<!-- ✅ Accessibility-first: skip link comes first -->
-<a class="skip-link" href="#main">Skip to main content</a>
-
-<!-- ✅ Page header -->
-<header>
-  <div class="top-bar">
+  <!-- 🔹 Main navigation bar -->
+  <header class="top-bar">
     <button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
     <nav aria-label="Main navigation" class="collapsed" id="mainNav">
       <a href="#topics">Explore by Topic</a>
@@ -301,50 +272,58 @@
       <a href="#learn">Learn & Participate</a>
       <a href="#form">Suggest a Resource</a>
     </nav>
-  </div>
-  <div class="video-banner">
+  </header>
+
+  <!-- 🔹 Hero video banner -->
+  <section class="video-banner">
     <video autoplay muted loop playsinline>
       <source src="aerial.mp4" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
     <div class="video-overlay"></div>
-  </div>
-
-
-  <div class="hero-header">
-  <h1>Your WA – Transparency Hub</h1>
-  <p class="subtitle">Find the tools, dashboards, and data driving open government in Washington State.</p>
-  </div>
-</header>
-
-<!-- ✅ Topic navigation now comes *after* header -->
-<nav id="topic-nav"></nav>
-
-<!-- ✅ Main content -->
-<main class="container" id="main">
-  <section class="section" id="topics">
-    <h2>Resources by Topic</h2>
-    <div id="resource-list"></div>
+    <div class="hero-header">
+      <h1>Your WA – Transparency Hub</h1>
+      <p class="subtitle">Find the tools, dashboards, and data driving open government in Washington State.</p>
+    </div>
   </section>
-  <section class="section" id="form">
-    <h2>Suggest a Resource</h2>
-    <form id="suggestForm">
-<label for="title">Resource Title:</label><br/>
-<input id="title" name="title" required="" style="width:100%; padding:0.5em;" type="text"/><br/><br/>
-<label for="agency">Agency:</label><br/>
-<input id="agency" name="agency" required="" style="width:100%; padding:0.5em;" type="text"/><br/><br/>
-<label for="url">URL:</label><br/>
-<input id="url" name="url" required="" style="width:100%; padding:0.5em;" type="url"/><br/><br/>
-<label for="description">Description:</label><br/>
-<textarea id="description" name="description" required="" rows="4" style="width:100%; padding:0.5em;"></textarea><br/><br/>
-<input type="submit" value="Submit Suggestion"/>
-</form>
-<p id="formResponse" style="margin-top:1em;"></p>
-</section>
-</main>
-<footer>
-        © 2025 Washington State | Built for transparency and public access
-    </footer>
+
+  <!-- 🔹 Topic filter buttons (populated by JS) -->
+  <nav id="topic-nav"></nav>
+
+  <!-- 🔹 Main content -->
+  <main class="container" id="main">
+
+    <section class="section" id="topics">
+      <h2>Resources by Topic</h2>
+      <div id="resource-list"></div>
+    </section>
+
+    <section class="section" id="form">
+      <h2>Suggest a Resource</h2>
+      <form id="suggestForm">
+        <label for="title">Resource Title:</label><br/>
+        <input id="title" name="title" required style="width:100%; padding:0.5em;" type="text" /><br/><br/>
+
+        <label for="agency">Agency:</label><br/>
+        <input id="agency" name="agency" required style="width:100%; padding:0.5em;" type="text" /><br/><br/>
+
+        <label for="url">URL:</label><br/>
+        <input id="url" name="url" required style="width:100%; padding:0.5em;" type="url" /><br/><br/>
+
+        <label for="description">Description:</label><br/>
+        <textarea id="description" name="description" required rows="4" style="width:100%; padding:0.5em;"></textarea><br/><br/>
+
+        <input type="submit" value="Submit Suggestion" />
+      </form>
+      <p id="formResponse" style="margin-top:1em;"></p>
+    </section>
+
+  </main>
+
+  <footer>
+    © 2025 Washington State | Built for transparency and public access
+  </footer>
+
 <script>
 window.onload = function () {
   fetch('your-wa-resources-complete-final.json')
