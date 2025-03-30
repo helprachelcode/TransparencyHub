@@ -56,18 +56,20 @@
     }
 
     #topic-nav {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        gap: 0.5rem;
-        padding: 1rem 0;
-        background-color: #f1f4f6;
-        border-top: 2px solid var(--olive-green);
-        border-bottom: 2px solid var(--olive-green);
-        margin-bottom: 2rem;
-        z-index: 4;               /* ensure it's on top of video */
-        position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 0.5rem;
+      padding: 1rem 0;
+      background-color: #f1f4f6;
+      border-top: 2px solid var(--olive-green);
+      border-bottom: 2px solid var(--olive-green);
+      margin-bottom: 2rem;
+      position: sticky;     /* 🔁 was: relative */
+      top: 0;               /* 👆 stick to top when scrolling */
+      z-index: 10;          /* 🔼 float above content */
     }
+
 
     #topic-nav a {
         display: inline-block;
