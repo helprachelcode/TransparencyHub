@@ -156,25 +156,34 @@
 </style>
 </head>
 <body>
+
+<!-- ✅ Accessibility-first: skip link comes first -->
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<!-- ✅ Page header -->
 <header>
-<h1>Your WA – Transparency Hub</h1>
-<button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
-<nav aria-label="Main navigation" class="collapsed" id="mainNav">
-<a href="#topics">Explore by Topic</a>
-<a href="#tools">Find a Tool</a>
-<a href="#learn">Learn &amp; Participate</a>
-<a href="#form">Suggest a Resource</a>
-</nav>
+  <h1>Your WA – Transparency Hub</h1>
+  <button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
+  <nav aria-label="Main navigation" class="collapsed" id="mainNav">
+    <a href="#topics">Explore by Topic</a>
+    <a href="#tools">Find a Tool</a>
+    <a href="#learn">Learn & Participate</a>
+    <a href="#form">Suggest a Resource</a>
+  </nav>
 </header>
-<a class="skip-link" href="#main">Skip to main content</a><nav id="topic-nav"></nav>
+
+<!-- ✅ Topic navigation now comes *after* header -->
+<nav id="topic-nav"></nav>
+
+<!-- ✅ Main content -->
 <main class="container" id="main">
-<section class="section" id="topics">
-<h2>Resources by Topic</h2>
-<div id="resource-list"></div>
-</section>
-<section class="section" id="form">
-<h2>Suggest a Resource</h2>
-<form id="suggestForm">
+  <section class="section" id="topics">
+    <h2>Resources by Topic</h2>
+    <div id="resource-list"></div>
+  </section>
+  <section class="section" id="form">
+    <h2>Suggest a Resource</h2>
+    <form id="suggestForm">
 <label for="title">Resource Title:</label><br/>
 <input id="title" name="title" required="" style="width:100%; padding:0.5em;" type="text"/><br/><br/>
 <label for="agency">Agency:</label><br/>
