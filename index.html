@@ -313,18 +313,17 @@
   <a class="skip-link" href="#main">Skip to main content</a>
 
   <!-- 🔹 Main navigation bar -->
-  <header>
-    <div class="top-bar">
-      <img src="YourWA.png" alt="Your WA logo" class="logo" />
-      <button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
-      <nav aria-label="Main navigation" class="collapsed" id="mainNav">
-        <a href="#topics">Explore by Topic</a>
-        <a href="#tools">Find a Tool</a>
-        <a href="#learn">Learn & Participate</a>
-        <a href="#form">Suggest a Resource</a>
-      </nav>
-    </div>
-
+ <header>
+  <div class="top-bar">
+    <img src="YourWA.png" alt="Your WA logo" class="logo" />
+    <button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
+    <nav aria-label="Main navigation" class="collapsed" id="mainNav">
+      <a href="#topics">Browse by Topic</a>
+      <a href="#tools">Use a Tool or Dashboard</a>
+      <a href="#learn">Learn or Get Involved</a>
+      <a href="#form">Share a Helpful Website</a>
+    </nav>
+  </div>
 
   <div class="video-banner">
     <video autoplay muted loop playsinline>
@@ -335,48 +334,41 @@
   </div>
 
   <div class="hero-header">
-    <h1>Your WA – Transparency Hub</h1>
-    <p class="subtitle">Find the tools, dashboards, and data driving open government in Washington State.</p>
+    <img src="YourWA.png" alt="Your WA logo" class="logo" />
+    <h1>Your WA – Government Transparency Tools</h1>
+    <p class="subtitle">See how state government works. Explore data, tools, and resources that help you stay informed and involved.</p>
   </div>
 </header>
 
 <!-- Topic navigation -->
 <nav id="topic-nav"></nav>
 
+<main class="container" id="main">
+  <section class="section" id="topics">
+    <h2>Explore tools and websites by topic</h2>
+    <div id="resource-list"></div>
   </section>
 
-  <!-- 🔹 Topic filter buttons (populated by JS) -->
-  <nav id="topic-nav"></nav>
+  <section class="section" id="form">
+    <h2>Know a useful site that belongs here? Let us know.</h2>
+    <form id="suggestForm">
+      <label for="title">What’s the name of the site or tool?</label><br />
+      <input id="title" name="title" required style="width:100%; padding:0.5em;" type="text" /><br /><br />
 
-  <!-- 🔹 Main content -->
-  <main class="container" id="main">
+      <label for="agency">Who runs it? (Agency or organization)</label><br />
+      <input id="agency" name="agency" required style="width:100%; padding:0.5em;" type="text" /><br /><br />
 
-    <section class="section" id="topics">
-      <h2>Resources by Topic</h2>
-      <div id="resource-list"></div>
-    </section>
+      <label for="url">Link to the website</label><br />
+      <input id="url" name="url" required style="width:100%; padding:0.5em;" type="url" /><br /><br />
 
-    <section class="section" id="form">
-      <h2>Suggest a Resource</h2>
-      <form id="suggestForm">
-        <label for="title">Resource Title:</label><br/>
-        <input id="title" name="title" required style="width:100%; padding:0.5em;" type="text" /><br/><br/>
+      <label for="description">What can people do or learn there?</label><br />
+      <textarea id="description" name="description" required rows="4" style="width:100%; padding:0.5em;"></textarea><br /><br />
 
-        <label for="agency">Agency:</label><br/>
-        <input id="agency" name="agency" required style="width:100%; padding:0.5em;" type="text" /><br/><br/>
-
-        <label for="url">URL:</label><br/>
-        <input id="url" name="url" required style="width:100%; padding:0.5em;" type="url" /><br/><br/>
-
-        <label for="description">Description:</label><br/>
-        <textarea id="description" name="description" required rows="4" style="width:100%; padding:0.5em;"></textarea><br/><br/>
-
-        <input type="submit" value="Submit Suggestion" />
-      </form>
-      <p id="formResponse" style="margin-top:1em;"></p>
-    </section>
-
-  </main>
+      <input type="submit" value="Submit Suggestion" />
+    </form>
+    <p id="formResponse" style="margin-top:1em;"></p>
+  </section>
+</main>
 
   <footer>
     © 2025 Washington State | Built for transparency and public access
