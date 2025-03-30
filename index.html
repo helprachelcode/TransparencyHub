@@ -321,9 +321,9 @@ window.onload = function () {
       });
 
       const uniqueTopics = Object.keys(topicCounts).sort();
+      let currentFilter = null;
 
-      let currentFilter = null; // Track active filter
-
+      // Create filter buttons
       uniqueTopics.forEach(topic => {
         const link = document.createElement("a");
         link.href = "#";
@@ -332,28 +332,26 @@ window.onload = function () {
 
         link.addEventListener("click", function (e) {
           e.preventDefault();
-
           if (currentFilter === topic) {
-            // Clicking the same filter resets
-            showAllSections();
-            currentFilter = null;
+            showAllCards();
             updateFilterStyles(null);
+            currentFilter = null;
           } else {
-            filterSections(topic);
-            currentFilter = topic;
+            filterCards(topic);
             updateFilterStyles(topic);
+            currentFilter = topic;
           }
         });
 
         nav.appendChild(link);
       });
 
+      // Create sections and cards
       uniqueTopics.forEach(topic => {
         const anchorId = topic.replace(/\s+/g, '').replace(/[^\w-]/g, '');
         const section = document.createElement("section");
         section.className = "section";
         section.id = anchorId;
-        section.setAttribute("data-topic", topic);
         section.innerHTML = `<h2>${topic}</h2>`;
         container.appendChild(section);
 
@@ -361,6 +359,7 @@ window.onload = function () {
         group.forEach(resource => {
           const div = document.createElement("div");
           div.className = "card";
+          div.setAttribute("data-topic", resource.Topic); // ✅ card-level filter
           div.innerHTML = `
             <h3>${resource.Title}</h3>
             <p><strong>Agency:</strong> ${resource.Agency}</p>
@@ -383,20 +382,22 @@ window.onload = function () {
         });
       });
 
-      function filterSections(topic) {
-  // We're just visually updating the filter state,
-  // not hiding any content anymore.
-      const section = document.querySelector(`[data-topic="${topic}"]`);
-      if (section) {
-        section.scrollIntoView({ behavior: "smooth", block: "start" });
+      // Show only cards matching the selected topic
+      function filterCards(selectedTopic) {
+        const allCards = document.querySelectorAll(".card");
+        allCards.forEach(card => {
+          if (card.dataset.topic === selectedTopic) {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
+          }
+        });
       }
-    }
 
-
-      function showAllSections() {
-        const allSections = document.querySelectorAll("[data-topic]");
-        allSections.forEach(section => {
-          section.style.display = "block";
+      function showAllCards() {
+        const allCards = document.querySelectorAll(".card");
+        allCards.forEach(card => {
+          card.style.display = "block";
         });
       }
 
@@ -422,6 +423,7 @@ window.onload = function () {
     });
 };
 </script>
+
 
 
 </body>
