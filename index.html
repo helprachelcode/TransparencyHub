@@ -384,11 +384,14 @@ window.onload = function () {
       });
 
       function filterSections(topic) {
-        const allSections = document.querySelectorAll("[data-topic]");
-        allSections.forEach(section => {
-          section.style.display = section.dataset.topic === topic ? "block" : "none";
-        });
+  // We're just visually updating the filter state,
+  // not hiding any content anymore.
+      const section = document.querySelector(`[data-topic="${topic}"]`);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
       }
+    }
+
 
       function showAllSections() {
         const allSections = document.querySelectorAll("[data-topic]");
