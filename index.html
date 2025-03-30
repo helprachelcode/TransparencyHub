@@ -234,12 +234,43 @@
           align-items: center;
         }
         
+        .video-banner {
+          position: relative;
+          width: 100%;
+          height: 300px; /* Or whatever feels right */
+          overflow: hidden;
+        }
+        
+        .video-banner video {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          min-width: 100%;
+          min-height: 100%;
+          transform: translate(-50%, -50%);
+          object-fit: cover;
+          z-index: 1;
+        }
+        
+        .video-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(60, 75, 94, 0.6); /* translucent dark overlay */
+          z-index: 2;
+        }
+        
         .hero-header {
-          background: #e9ecef;
+          position: relative;
+          z-index: 3;
           text-align: center;
           padding: 2rem 1rem;
-          border-bottom: 3px solid var(--olive-green);
+          margin-top: -300px; /* pull into video space */
+          color: white;
         }
+
         
         .hero-header h1 {
           font-size: 2.5rem;
@@ -271,10 +302,18 @@
       <a href="#form">Suggest a Resource</a>
     </nav>
   </div>
+  <div class="video-banner">
+    <video autoplay muted loop playsinline>
+      <source src="aerial.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
 
   <div class="hero-header">
-    <h1>Your WA – Transparency Hub</h1>
-    <p class="subtitle">Find the tools, dashboards, and data driving open government in Washington State.</p>
+  <h1>Your WA – Transparency Hub</h1>
+  <p class="subtitle">Find the tools, dashboards, and data driving open government in Washington State.</p>
   </div>
 </header>
 
