@@ -145,14 +145,38 @@
             nav.collapsed a { display: none; }
         }
     
-#topic-nav a {
-  display: inline-block;
-  margin-right: 1rem;
-  text-decoration: none;
-  font-weight: bold;
-  color: #4E738D;
-  margin-bottom: 0.5rem;
-}
+        #topic-nav a {
+          display: inline-block;
+          margin-right: 1rem;
+          text-decoration: none;
+          font-weight: bold;
+          color: #4E738D;
+          margin-bottom: 0.5rem;
+        }
+                #topic-nav {
+          margin: 1.5rem 0;
+          padding: 1rem;
+          background: #eef2f5;
+          border-radius: 8px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+        }
+        
+        #topic-nav a {
+          background: #4E738D; /* Muted Blue */
+          color: white;
+          padding: 0.4em 0.8em;
+          border-radius: 4px;
+          text-decoration: none;
+          font-size: 0.9em;
+          font-weight: bold;
+        }
+        
+        #topic-nav a:hover {
+          background: #3C4B5E; /* Dark Slate Blue */
+        }
+
 </style>
 </head>
 <body>
