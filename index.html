@@ -325,6 +325,11 @@
   </footer>
 
 <script>
+    
+function toggleMenu() {
+  const nav = document.getElementById("mainNav");
+  nav.classList.toggle("collapsed");
+}
 window.onload = function () {
   fetch('your-wa-resources-complete-final.json')
     .then(response => response.json())
