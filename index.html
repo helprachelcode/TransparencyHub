@@ -435,6 +435,14 @@ window.onload = function () {
       });
 
       // Show only cards matching the selected topic
+    window.addEventListener("scroll", function () {
+      const btn = document.getElementById("backToTop");
+      if (window.scrollY > 400) {
+        btn.classList.add("show");
+      } else {
+        btn.classList.remove("show");
+      }
+});
     function filterCards(selectedTopic) {
       const allCards = document.querySelectorAll(".card");
       const allSections = document.querySelectorAll(".section");
