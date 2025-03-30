@@ -1,0 +1,260 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Your WA – Transparency Hub</title>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@900&amp;display=swap" rel="stylesheet"/>
+<style>
+        :root {
+            --dark-slate-blue: #3C4B5E;
+            --muted-blue: #4E738D;
+            --dusty-rose: #A78584;
+            --lavender: #6F4B6F;
+            --deep-red: #8C1F34;
+            --orange: #E05406;
+            --charcoal: #55574C;
+            --olive-green: #7B8D3B;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 900;
+            margin: 0;
+            background: #f8f9fa;
+            color: var(--charcoal);
+        }
+
+        header, nav, footer {
+            background: var(--dark-slate-blue);
+            color: white;
+            padding: 1em;
+        }
+
+        nav a {
+            color: white;
+            margin-right: 1em;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            padding: 1em;
+            max-width: 960px;
+            margin: auto;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 0.2em;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            color: var(--olive-green);
+            margin-top: 2em;
+            margin-bottom: 0.5em;
+        }
+
+        h3 {
+            font-size: 1.2em;
+            color: var(--dark-slate-blue);
+        }
+
+        .section {
+            margin-bottom: 2em;
+        }
+
+        .card {
+            background: white;
+            border: 2px solid var(--lavender);
+            border-left: 8px solid var(--muted-blue);
+            border-radius: 6px;
+            padding: 1em;
+            margin: 1em 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .card a {
+            color: var(--orange);
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 0.5em;
+        }
+
+        .card a:hover {
+            color: var(--deep-red);
+            text-decoration: underline;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: var(--dusty-rose);
+            color: white;
+            font-size: 0.75em;
+            padding: 0.2em 0.5em;
+            margin: 0.2em;
+            border-radius: 3px;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #ffffe0;
+            color: #003366;
+            padding: 8px;
+            z-index: 100;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .skip-link:focus {
+            top: 10px;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            nav a { display: block; margin: 0.5em 0; }
+            .menu-toggle { display: inline; }
+            nav.collapsed a { display: none; }
+        }
+    
+#topic-nav a {
+  display: inline-block;
+  margin-right: 1rem;
+  text-decoration: none;
+  font-weight: bold;
+  color: #4E738D;
+  margin-bottom: 0.5rem;
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a><nav id="topic-nav"></nav>
+<header>
+<h1>Your WA – Transparency Hub</h1>
+<button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
+<nav aria-label="Main navigation" class="collapsed" id="mainNav">
+<a href="#topics">Explore by Topic</a>
+<a href="#tools">Find a Tool</a>
+<a href="#learn">Learn &amp; Participate</a>
+<a href="#form">Suggest a Resource</a>
+</nav>
+</header>
+<main class="container" id="main">
+<section class="section" id="topics">
+<h2>Resources by Topic</h2>
+<div id="resourceContainer"></div>
+</section>
+<section class="section" id="form">
+<h2>Suggest a Resource</h2>
+<form id="suggestForm">
+<label for="title">Resource Title:</label><br/>
+<input id="title" name="title" required="" style="width:100%; padding:0.5em;" type="text"/><br/><br/>
+<label for="agency">Agency:</label><br/>
+<input id="agency" name="agency" required="" style="width:100%; padding:0.5em;" type="text"/><br/><br/>
+<label for="url">URL:</label><br/>
+<input id="url" name="url" required="" style="width:100%; padding:0.5em;" type="url"/><br/><br/>
+<label for="description">Description:</label><br/>
+<textarea id="description" name="description" required="" rows="4" style="width:100%; padding:0.5em;"></textarea><br/><br/>
+<input type="submit" value="Submit Suggestion"/>
+</form>
+<p id="formResponse" style="margin-top:1em;"></p>
+</section>
+</main>
+<footer>
+        © 2025 Washington State | Built for transparency and public access
+    </footer>
+<div id="resource-list"></div>
+<script>
+window.onload = function () {
+  fetch('your-wa-resources-complete-final.json')
+    .then(response => response.json())
+    .then(data => {
+      const container = document.getElementById("resource-list");
+      const nav = document.getElementById("topic-nav");
+
+      const topicCounts = {};
+      data.forEach(item => {
+        if (!topicCounts[item.Topic]) topicCounts[item.Topic] = 0;
+        topicCounts[item.Topic]++;
+      });
+
+      const uniqueTopics = Object.keys(topicCounts).sort();
+
+      uniqueTopics.forEach(topic => {
+        const anchorId = topic.replace(/\s+/g, '').replace(/[^\w-]/g, '');
+        const link = document.createElement("a");
+        link.href = `#${anchorId}`;
+        link.textContent = `${topic} (${topicCounts[topic]})`;
+        nav.appendChild(link);
+      });
+
+      uniqueTopics.forEach(topic => {
+        const anchorId = topic.replace(/\s+/g, '').replace(/[^\w-]/g, '');
+        const section = document.createElement("section");
+        section.className = "section";
+        section.id = anchorId;
+        section.innerHTML = `<h2>${topic}</h2>`;
+        container.appendChild(section);
+
+        const group = data.filter(item => item.Topic === topic);
+        group.forEach(resource => {
+          const div = document.createElement("div");
+          div.className = "card";
+          div.innerHTML = `
+            <h3>${resource.Title}</h3>
+            <p><strong>Agency:</strong> ${resource.Agency}</p>
+            <p><strong>Topic:</strong> ${resource.Topic}</p>
+            <p><strong>Format:</strong> ${resource.Format}</p>
+            <p><strong>Audience:</strong> ${resource.Audience}</p>
+            <p>${resource.Description}</p>
+            <a href="${resource.URL}" target="_blank">Visit site</a>
+            <div class="tags">
+              ${(
+                typeof resource.Tags === 'string'
+                  ? resource.Tags.split(',').map(t => t.trim())
+                  : Array.isArray(resource.Tags)
+                    ? resource.Tags
+                    : []
+              ).map(tag => `<span class="tag">${tag}</span>`).join(' ')}
+            </div>
+          `;
+          section.appendChild(div);
+        });
+      });
+    })
+    .catch(error => {
+      document.getElementById("resource-list").innerHTML = "<p>Error loading resources. Please check your connection or try hosting via a server.</p>";
+      console.error("Error loading JSON:", error);
+    });
+};
+</script>
+</body>
+</html>
