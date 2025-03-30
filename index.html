@@ -259,6 +259,33 @@
         margin-top: 0.5rem;
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
     }
+    #backToTop {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--muted-blue);
+      color: white;
+      border: none;
+      padding: 0.6em 1em;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 50;
+    }
+    
+    #backToTop.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    #backToTop:hover {
+      background: var(--dark-slate-blue);
+    }
+
 </style>
 
 </head>
@@ -459,6 +486,9 @@ window.onload = function () {
 };
 </script>
 
+<button id="backToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+  ↑ Top
+</button>
 
 
 </body>
