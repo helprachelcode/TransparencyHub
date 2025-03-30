@@ -234,7 +234,7 @@
         background: rgba(60, 75, 94, 0.6); /* translucent dark overlay */
         z-index: 2;
     }
-
+    
     .hero-header {
       position: relative;
       z-index: 3;
@@ -247,8 +247,14 @@
     .hero-header img.logo {
       width: 90px;
       height: auto;
-      margin-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      transition: transform 0.2s ease;
     }
+    
+    .hero-header img.logo:hover {
+      transform: scale(1.05);
+    }
+
 
 
     .hero-header h1 {
@@ -298,7 +304,8 @@
   <a class="skip-link" href="#main">Skip to main content</a>
 
   <!-- 🔹 Main navigation bar -->
-  <header class="top-bar">
+  <header>
+  <div class="top-bar">
     <button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
     <nav aria-label="Main navigation" class="collapsed" id="mainNav">
       <a href="#topics">Explore by Topic</a>
@@ -306,7 +313,26 @@
       <a href="#learn">Learn & Participate</a>
       <a href="#form">Suggest a Resource</a>
     </nav>
-  </header>
+  </div>
+
+  <div class="video-banner">
+    <video autoplay muted loop playsinline>
+      <source src="aerial.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
+  <div class="hero-header">
+    <img src="YourWA.png" alt="Your WA logo" class="logo" />
+    <h1>Your WA – Transparency Hub</h1>
+    <p class="subtitle">Find the tools, dashboards, and data driving open government in Washington State.</p>
+  </div>
+</header>
+
+<!-- Topic navigation -->
+<nav id="topic-nav"></nav>
+
 
   <!-- 🔹 Hero video banner -->
   <section class="video-banner">
