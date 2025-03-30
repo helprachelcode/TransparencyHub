@@ -50,7 +50,7 @@
         margin: auto;
     }
 
-    /* ✅ NEW STYLES: spacing + filter buttons */
+    /* NEW STYLES: spacing + filter buttons */
     #mainNav {
         margin-bottom: 1.5rem;
     }
@@ -313,19 +313,28 @@ window.onload = function () {
 
       const uniqueTopics = Object.keys(topicCounts).sort();
 
+      // Create filter buttons
       uniqueTopics.forEach(topic => {
-        const anchorId = topic.replace(/\s+/g, '').replace(/[^\w-]/g, '');
         const link = document.createElement("a");
-        link.href = `#${anchorId}`;
+        link.href = "#";
         link.textContent = `${topic} (${topicCounts[topic]})`;
+        link.dataset.topic = topic;
+
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          filterSections(topic);
+        });
+
         nav.appendChild(link);
       });
 
+      // Build sections and cards
       uniqueTopics.forEach(topic => {
         const anchorId = topic.replace(/\s+/g, '').replace(/[^\w-]/g, '');
         const section = document.createElement("section");
         section.className = "section";
         section.id = anchorId;
+        section.setAttribute("data-topic", topic); // ✅ Dynamic data-topic added
         section.innerHTML = `<h2>${topic}</h2>`;
         container.appendChild(section);
 
@@ -354,6 +363,14 @@ window.onload = function () {
           section.appendChild(div);
         });
       });
+
+      // Filtering logic
+      function filterSections(selectedTopic) {
+        const allSections = document.querySelectorAll("[data-topic]");
+        allSections.forEach(section => {
+          section.style.display = section.dataset.topic === selectedTopic ? "block" : "none";
+        });
+      }
     })
     .catch(error => {
       document.getElementById("resource-list").innerHTML = "<p>Error loading resources. Please check your connection or try hosting via a server.</p>";
@@ -361,5 +378,6 @@ window.onload = function () {
     });
 };
 </script>
+
 </body>
 </html>
