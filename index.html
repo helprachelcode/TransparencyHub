@@ -80,6 +80,15 @@
     #topic-nav a:hover {
         background-color: var(--lavender);
     }
+    
+    #topic-nav a.active {
+      background-color: var(--orange);
+      color: white;
+    }
+    
+    #topic-nav a.inactive {
+      opacity: 0.4;
+    }
 
         h1 {
             font-size: 2em;
@@ -313,7 +322,8 @@ window.onload = function () {
 
       const uniqueTopics = Object.keys(topicCounts).sort();
 
-      // Create filter buttons
+      let currentFilter = null; // Track active filter
+
       uniqueTopics.forEach(topic => {
         const link = document.createElement("a");
         link.href = "#";
@@ -322,19 +332,28 @@ window.onload = function () {
 
         link.addEventListener("click", function (e) {
           e.preventDefault();
-          filterSections(topic);
+
+          if (currentFilter === topic) {
+            // Clicking the same filter resets
+            showAllSections();
+            currentFilter = null;
+            updateFilterStyles(null);
+          } else {
+            filterSections(topic);
+            currentFilter = topic;
+            updateFilterStyles(topic);
+          }
         });
 
         nav.appendChild(link);
       });
 
-      // Build sections and cards
       uniqueTopics.forEach(topic => {
         const anchorId = topic.replace(/\s+/g, '').replace(/[^\w-]/g, '');
         const section = document.createElement("section");
         section.className = "section";
         section.id = anchorId;
-        section.setAttribute("data-topic", topic); // ✅ Dynamic data-topic added
+        section.setAttribute("data-topic", topic);
         section.innerHTML = `<h2>${topic}</h2>`;
         container.appendChild(section);
 
@@ -364,11 +383,33 @@ window.onload = function () {
         });
       });
 
-      // Filtering logic
-      function filterSections(selectedTopic) {
+      function filterSections(topic) {
         const allSections = document.querySelectorAll("[data-topic]");
         allSections.forEach(section => {
-          section.style.display = section.dataset.topic === selectedTopic ? "block" : "none";
+          section.style.display = section.dataset.topic === topic ? "block" : "none";
+        });
+      }
+
+      function showAllSections() {
+        const allSections = document.querySelectorAll("[data-topic]");
+        allSections.forEach(section => {
+          section.style.display = "block";
+        });
+      }
+
+      function updateFilterStyles(activeTopic) {
+        const links = document.querySelectorAll("#topic-nav a");
+        links.forEach(link => {
+          const topic = link.dataset.topic;
+          if (activeTopic === null) {
+            link.classList.remove("active", "inactive");
+          } else if (topic === activeTopic) {
+            link.classList.add("active");
+            link.classList.remove("inactive");
+          } else {
+            link.classList.remove("active");
+            link.classList.add("inactive");
+          }
         });
       }
     })
@@ -378,6 +419,7 @@ window.onload = function () {
     });
 };
 </script>
+
 
 </body>
 </html>
