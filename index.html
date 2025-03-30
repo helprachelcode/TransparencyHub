@@ -383,23 +383,33 @@ window.onload = function () {
       });
 
       // Show only cards matching the selected topic
-      function filterCards(selectedTopic) {
-        const allCards = document.querySelectorAll(".card");
-        allCards.forEach(card => {
-          if (card.dataset.topic === selectedTopic) {
-            card.style.display = "block";
-          } else {
-            card.style.display = "none";
-          }
-        });
-      }
+    function filterCards(selectedTopic) {
+      const allCards = document.querySelectorAll(".card");
+      const allSections = document.querySelectorAll(".section");
+    
+      allCards.forEach(card => {
+        card.style.display = card.dataset.topic === selectedTopic ? "block" : "none";
+      });
+    
+      allSections.forEach(section => {
+        const visibleCards = section.querySelectorAll(".card:not([style*='display: none'])");
+        section.style.display = visibleCards.length > 0 ? "block" : "none";
+      });
+    }
+    
+    function showAllCards() {
+      const allCards = document.querySelectorAll(".card");
+      const allSections = document.querySelectorAll(".section");
+    
+      allCards.forEach(card => {
+        card.style.display = "block";
+      });
+    
+      allSections.forEach(section => {
+        section.style.display = "block";
+      });
+    }
 
-      function showAllCards() {
-        const allCards = document.querySelectorAll(".card");
-        allCards.forEach(card => {
-          card.style.display = "block";
-        });
-      }
 
       function updateFilterStyles(activeTopic) {
         const links = document.querySelectorAll("#topic-nav a");
